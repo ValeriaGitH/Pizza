@@ -11,74 +11,72 @@ class ProductCell: UITableViewCell {
 
     static let reuseID = "ProductCell"
     
-    let img =  UIImageView()
-    let lab = UILabel()
-    let info = UILabel()
-    let price = UILabel()
+    private var product = ProductCellViewModel()
+    
+    func configure(with viewModel: ProductCellViewModel, isFirstCell: Bool){
+        
+        product.update(product: viewModel)
+        
+        if (isFirstCell){
+            layer.masksToBounds = true
+            layer.cornerRadius = 30
+            layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
+        
+        awakeFromNib() 
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         
         backgroundColor = .white
-        info.textColor = R.Colors.lightGray
-        info.numberOfLines = 0;
+        product.info.textColor = .lightGray
+        product.info.numberOfLines = 0;
 
         layer.borderWidth = 1
-        layer.borderColor = R.Colors.separator.cgColor
-        price.layer.borderWidth = 1
-        price.layer.borderColor = R.Colors.pink.cgColor
-        price.layer.cornerRadius = 5
-        price.textColor = R.Colors.pink
-        price.textAlignment = .center
-        //price.baselineAdjustment = .alignCenters
+        layer.borderColor = UIColor.separator.cgColor
+        product.price.layer.borderWidth = 1
+        product.price.layer.borderColor = UIColor.pink.cgColor
+        product.price.layer.cornerRadius = 5
+        product.price.textColor = .pink
+        product.price.textAlignment = .center
         
-        
-        img.translatesAutoresizingMaskIntoConstraints = false
-        lab.translatesAutoresizingMaskIntoConstraints = false
-        info.translatesAutoresizingMaskIntoConstraints = false
-        price.translatesAutoresizingMaskIntoConstraints = false
+        product.img.translatesAutoresizingMaskIntoConstraints = false
+        product.title.translatesAutoresizingMaskIntoConstraints = false
+        product.info.translatesAutoresizingMaskIntoConstraints = false
+        product.price.translatesAutoresizingMaskIntoConstraints = false
 
-        contentView.addSubview(img)
-        contentView.addSubview(lab)
-        contentView.addSubview(info)
-        contentView.addSubview(price)
+        contentView.addSubview(product.img)
+        contentView.addSubview(product.title)
+        contentView.addSubview(product.info)
+        contentView.addSubview(product.price)
         
         NSLayoutConstraint.activate([
             
-            img.heightAnchor.constraint(equalToConstant: 132),
-            img.widthAnchor.constraint(equalToConstant: 132),
-            img.centerYAnchor.constraint(equalTo: centerYAnchor),
-            img.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            product.img.heightAnchor.constraint(equalToConstant: 132),
+            product.img.widthAnchor.constraint(equalToConstant: 132),
+            product.img.centerYAnchor.constraint(equalTo: centerYAnchor),
+            product.img.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
 
-            lab.heightAnchor.constraint(equalToConstant: 20),
-            lab.topAnchor.constraint(equalTo: topAnchor, constant: 32),
-            lab.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 180),
+            product.title.heightAnchor.constraint(equalToConstant: 20),
+            product.title.topAnchor.constraint(equalTo: topAnchor, constant: 32),
+            product.title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 180),
             
-            info.heightAnchor.constraint(equalToConstant: 64),
-            info.topAnchor.constraint(equalTo: topAnchor, constant: 60),
-            info.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 180),
-            info.rightAnchor.constraint(equalTo: rightAnchor, constant: -24),
+            product.info.heightAnchor.constraint(equalToConstant: 64),
+            product.info.topAnchor.constraint(equalTo: topAnchor, constant: 60),
+            product.info.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 180),
+            product.info.rightAnchor.constraint(equalTo: rightAnchor, constant: -24),
             
-            price.heightAnchor.constraint(equalToConstant: 32),
-            price.widthAnchor.constraint(equalToConstant: 87),
-            price.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            price.rightAnchor.constraint(equalTo: rightAnchor, constant: -24)
+            product.price.heightAnchor.constraint(equalToConstant: 32),
+            product.price.widthAnchor.constraint(equalToConstant: 87),
+            product.price.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            product.price.rightAnchor.constraint(equalTo: rightAnchor, constant: -24)
  
         ])
 
     }
-    
-    func around(){
-        
-        layer.masksToBounds = true
-        layer.cornerRadius = 30
-
-        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 }

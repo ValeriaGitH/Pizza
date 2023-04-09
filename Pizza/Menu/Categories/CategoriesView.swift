@@ -8,7 +8,7 @@
 import UIKit
 
 //MARK:- Protocols
-protocol Subscriber : UIViewController {
+protocol Subscriber : AnyObject {
     func update(subject : Int )
 }
 
@@ -34,7 +34,6 @@ final class CategoriesView: UITableViewHeaderFooterView  {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.reuseID)
-        //collectionView.backgroundColor = R.Colors.aquamarine
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         
@@ -101,19 +100,11 @@ extension CategoriesView: UICollectionViewDataSource, UICollectionViewDelegateFl
         return cell
     }
     
-    /*func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Выбрана ячейка: (\(indexPath.row))")    
-    }*/
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         print("Выбрана ячейка: (\(indexPath.row))")
         
         subscribers.forEach { $0.value?.update(subject: indexPath.row)}
-        
-       //selectedIndex = indexPath
-       //collectionView.reloadData()
-
     }
     
     

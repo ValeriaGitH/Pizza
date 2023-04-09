@@ -7,10 +7,8 @@
 
 import Foundation
 
-class ApiManager{
-    
-    static let shared = ApiManager()
-    
+class MenuApiManager{
+        
     let headers = [
      "X-RapidAPI-Key": "90ab760ffemsh0584ca4a89816fcp1d5fe9jsnd9cd22fed675",
      "X-RapidAPI-Host": "pizzaallapala.p.rapidapi.com"
@@ -18,7 +16,7 @@ class ApiManager{
     
     let urlPizza = URL(string: "https://pizzaallapala.p.rapidapi.com/productos")
     
-    func GetPizza(completion: @escaping ([Producto]) -> Void) {
+    func obtainPizzaProducts(completion: @escaping ([Producto]) -> Void) {
         guard let url = urlPizza else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -27,16 +25,16 @@ class ApiManager{
         let task = URLSession.shared.dataTask(with: request){ data, response, error in
             
             guard let data else {
-                let d = UserDefaults.standard.object(forKey: "data") as! Data
-                if let welcomeData = try? JSONDecoder().decode(Welcome.self, from: d){
-                    completion(welcomeData.productos)
+                let dataLast  = UserDefaults.standard.object(forKey: "data") as? Data ?? Data()
+                if let menuData = try? JSONDecoder().decode(MenuViewModel.self, from: dataLast){
+                    completion(menuData.productos)
                 }
                 return
             }
             
             //парсинг
-            if let welcomeData = try? JSONDecoder().decode(Welcome.self, from: data){
-                completion(welcomeData.productos)
+            if let menuData = try? JSONDecoder().decode(MenuViewModel.self, from: data){
+                completion(menuData.productos)
                 UserDefaults.standard.set(data, forKey: "data")
             }
             

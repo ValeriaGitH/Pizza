@@ -33,10 +33,10 @@ final class TabBarController: UITabBarController {
     }
 
     private func configureAppearance() {        
-        tabBar.tintColor = R.Colors.active
-        tabBar.barTintColor = R.Colors.inactive
+        tabBar.tintColor = .active
+        tabBar.barTintColor = .inactive
         tabBar.backgroundColor = .white
-        tabBar.layer.borderColor = R.Colors.separator.cgColor
+        tabBar.layer.borderColor = UIColor.separator.cgColor
         tabBar.layer.borderWidth = 1
         tabBar.layer.masksToBounds = true
 
@@ -45,7 +45,7 @@ final class TabBarController: UITabBarController {
             controller.tabBarItem = UITabBarItem(title: R.Strings.TabBar.title(for: tab),
                                                  image: R.Images.TabBar.icon(for: tab),
                                                  tag: tab.rawValue)
-            controller.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: R.Fonts.helveticaRegular(with: 13)], for: .normal)
+            controller.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.tab], for: .normal)
             return controller
         }
 

@@ -16,7 +16,7 @@ final class BannersView: UIView {
         
         collectionView.dataSource = self
         collectionView.register(BannersCell.self, forCellWithReuseIdentifier: BannersCell.reuseID)
-        collectionView.backgroundColor = R.Colors.background
+        collectionView.backgroundColor = .background
         
         return collectionView
     }()

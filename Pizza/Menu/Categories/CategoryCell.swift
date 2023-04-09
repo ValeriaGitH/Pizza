@@ -12,18 +12,16 @@ final class CategoryCell: UICollectionViewCell {
     
     static let reuseID = "CategoryCell"
         
-    private lazy var label: UILabel = {
-        let l = UILabel()
-        l.textColor = R.Colors.lightPink
-        l.clipsToBounds = true
-        l.layer.cornerRadius = 20
-        l.layer.borderColor = R.Colors.lightPink.cgColor
-        l.layer.borderWidth = 2
-        l.textAlignment = .center
-        l.font = R.Fonts.helveticaRegular(with: 16)
-
-
-        return l
+    private var category: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightPink
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 20
+        label.layer.borderColor = UIColor.lightPink.cgColor
+        label.layer.borderWidth = 2
+        label.textAlignment = .center
+        label.font = UIFont.categoryCell
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -37,26 +35,26 @@ final class CategoryCell: UICollectionViewCell {
     
     private func setupView() {
                 
-        addSubview(label)
-        label.snp.makeConstraints { make in
+        addSubview(category)
+        category.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
     func setText(text: String) ->(){
-        label.text = text
+        category.text = text
     }
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                label.textColor = R.Colors.pink
-                label.layer.borderColor = R.Colors.pink.cgColor
-                label.font = R.Fonts.helveticaBoldRegular(with: 16)
+                category.textColor = .pink
+                category.layer.borderColor = UIColor.pink.cgColor
+                category.font = UIFont.categoryCellSelect
             } else {
-                label.textColor = R.Colors.lightPink
-                label.layer.borderColor = R.Colors.lightPink.cgColor
-                label.font = R.Fonts.helveticaRegular(with: 16)
+                category.textColor = .lightPink
+                category.layer.borderColor = UIColor.lightPink.cgColor
+                category.font = UIFont.categoryCell
             }
         }
     }

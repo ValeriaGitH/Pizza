@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - Welcome
-struct Welcome: Codable {
+// MARK: - MenuViewModel
+struct MenuViewModel: Codable {
     let mensaje: String
     let ok: Bool
     let productos: [Producto]
